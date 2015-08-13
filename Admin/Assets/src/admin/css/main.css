@@ -1,0 +1,70 @@
+/**
+ * styles for admin page
+ */
+body {
+  margin-top: 60px;
+}
+header.header {
+  position: fixed;
+  top: 0px;
+}
+img {
+  max-width: 160px;
+  height: auto;
+}
+#admin-logo {
+  background: url(../img/logo.png);
+  background-repeat: no-repeat;
+  height: 50px;
+}
+.ui-multiselect-filter input {
+  color: #000000;
+}
+img.uploadify-image {
+  max-height: 8em;
+}
+div.uploadify-image {
+  float: left;
+  width: 25%;
+  margin-right: 10px;
+}
+div.uploadify-multi-image-container {
+  display: table;
+}
+.gofarms-btn-actions {
+  margin-right: 5px;
+}
+th {
+  text-align: center;
+}
+img.gofarms-admin-img {
+  max-width: 120px;
+}
+.bootstrap-switch.bootstrap-switch-disabled,
+.bootstrap-switch.bootstrap-switch-readonly,
+.bootstrap-switch.bootstrap-switch-indeterminate {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  cursor: default !important;
+}
+.editor-wysiwyg {
+  overflow: scroll;
+  max-height: 300px;
+}
+textarea[form-data-role="wysiwyg"] {
+  overflow: scroll;
+  height: 600px;
+  width: 800px;
+}
+.cke {
+  min-width: 800px;
+}
+aside.right-side > section.content {
+  padding-bottom: 180px;
+}
+div[form-role="image-upload"] {
+  padding-left: 25px;
+}
+div[form-role="multi-image-upload"] {
+  padding-left: 25px;
+}

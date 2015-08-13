@@ -1,0 +1,34 @@
+{
+    "name": "packages",
+    "version": "0.0.0",
+    "authors": [
+        "wangke <wangke85@gmail.com>"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "1.10.*"
+        , "bootstrap": "3.*"
+        , "jquery-ui": "*"
+        , "uploadify": "*"
+        , "respond": "*"
+        , "modernizr": "*"
+        , "normalize.css": "*"
+        , "html5-boilerplate": "*"
+        , "bootstrap-fileinput": "*"
+        , "bootstrap-switch": "*"
+        , "typeahead.js": "*"
+        , "bootstrap-wysiwyg": "*"
+        , "bootstrap3-wysihtml5-bower": "*"
+        , "admin-lte": "*"
+        , "raphael": "2.1.*"
+        , "plupload":  "*"
+        , "ckeditor": "*"
+    }
+}

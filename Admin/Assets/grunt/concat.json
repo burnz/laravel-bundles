@@ -1,0 +1,117 @@
+{
+    "admin_js" : {
+        "src" :  [
+            "bower_components/bootstrap/dist/js/bootstrap.js"
+            , "bower_components/jquery-ui/jquery-ui.js"
+            , "bower_components/jquery-ui/ui/i18n/datepicker-zh-CN.js"
+            , "bower_components/bootstrap-switch/dist/js/bootstrap-switch.js"
+            , "src/jquery-ui-multiselect/js/jquery.multiselect.js"
+            , "src/jquery-ui-multiselect/js/jquery.multiselect.filter.js"
+            , "src/jquery-ui-multiselect/i18n/jquery.multiselect.filter.zh-cn.js"
+            , "bower_components/uploadify/jquery.uploadify.js"
+            , "src/artDialog/dist/dialog.js"
+            , "src/artDialog/dist/dialog-plus.js"
+        ]
+        , "dest" : "../../public/js/admin.js"
+        , "nonull" : true
+        , "options" : {
+            "separator" : ";"
+        }
+    },
+    "admin_lte_js" :{
+        "src" :  [
+            "bower_components/raphael/raphael.js"
+            , "bower_components/admin-lte/js/plugins/morris/morris.js"
+            , "bower_components/admin-lte/js/plugins/sparkline/jquery.sparkline.js"
+            , "bower_components/admin-lte/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"
+            , "bower_components/admin-lte/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"
+            , "bower_components/admin-lte/js/plugins/fullcalendar/fullcalendar.min.js"
+            , "bower_components/admin-lte/js/plugins/jqueryKnob/jquery.knob.js"
+            , "bower_components/admin-lte/js/plugins/daterangepicker/daterangepicker.js"
+            , "bower_components/admin-lte/js/plugins/iCheck/icheck.min.js"
+            , "bower_components/admin-lte/js/AdminLTE/app.js"
+        ]
+        , "dest" : "../../public/js/admin_lte.js"
+        , "nonull" : true
+        , "options" : {
+            "separator" : ";"
+        }
+    },
+    "admin_custom_js" : {
+        "src" :  [
+            "src/admin/js/artDialog.js"
+            , "src/admin/js/multiselect.js"
+            , "src/admin/js/jquery.getUrl.js"
+            , "src/admin/js/table.js"
+            , "src/admin/js/form.js"
+            , "src/admin/js/wysiwyg.js"
+            , "src/admin/js/uploadify.js"
+            , "src/admin/js/btn-submit-form-inside.js"
+            , "src/admin/js/bootstrap-switch.js"
+            , "src/admin/js/pickup-modal.js"
+        ]
+        , "dest" : "../../public/js/admin_custom.js"
+        , "nonull" : true
+        , "options" : {
+            "separator" : ";"
+        }
+    },
+    "admin_css" : {
+        "src" :  [
+            "bower_components/bootstrap/dist/css/bootstrap.css"
+            , "bower_components/bootstrap/dist/css/bootstrap-theme.css"
+            , "bower_components/jquery-ui/themes/ui-lightness/jquery-ui.css"
+            , "bower_components/jquery-ui/themes/ui-lightness/theme.css"
+            , "bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css"
+            , "src/jquery-ui-multiselect/css/jquery.multiselect.css"
+            , "src/jquery-ui-multiselect/css/jquery.multiselect.filter.css"
+            , "src/artDialog/css/ui-dialog.css"
+            , "src/admin/css/*.css"
+        ]
+        , "dest" : "../../public/css/admin.css"
+        , "nonull" : true
+    },
+    "admin_lte_css": {
+        "src" :  [
+            "bower_components/admin-lte/css/font-awesome.css"
+            , "bower_components/admin-lte/css/ionicons.css"
+            , "bower_components/admin-lte/css/morris/morris.css"
+            , "bower_components/admin-lte/css/jvectormap/jquery-jvectormap-1.2.2.css"
+            , "bower_components/admin-lte/css/fullcalendar/fullcalendar.css"
+            , "bower_components/admin-lte/css/daterangepicker/daterangepicker-bs3.css"
+            , "bower_components/admin-lte/css/AdminLTE.css"
+        ]
+        , "dest" : "../../public/css/admin_lte.css"
+        , "nonull" : true
+    },
+    "respond_js" : {
+        "src" :  [
+            "bower_components/respond/dest/respond.src.js"
+        ]
+        , "dest" : "../../public/js/respond.js"
+        , "nonull" : true
+        , "options" : {
+            "separator" : ";"
+        }
+    },
+    "basic_js" : {
+        "src" :  [
+            "bower_components/modernizr/modernizr.js"
+            , "bower_components/respond/dest/respond.src.js"
+            , "bower_components/jquery/jquery.js"
+        ]
+        , "dest" : "../../public/js/basic.js"
+        , "nonull" : true
+        , "options" : {
+            "separator" : ";"
+        }
+    },
+    "basic_css" : {
+        "src" :  [
+            "bower_components/normalize.css/normalize.css"
+            , "bower_components/html5-boilerplate/css/main.css"
+        ]
+        , "dest" : "../../public/css/basic.css"
+        , "nonull" : true
+    }
+}
