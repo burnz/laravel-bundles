@@ -15,16 +15,11 @@ use Xjtuwangke\BugSnag\Exception as BugSnagException;
 class ExceptionHandler extends Handler {
 
     /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $e
-     * @return void
+     * Report or log an exception
+     * @param \Exception $e
      */
     public function report(\Exception $e)
     {
-        return parent::report($e);
         if( $e instanceof DontReportExceptionContract ){
             return parent::report( $e );
         }
@@ -34,7 +29,7 @@ class ExceptionHandler extends Handler {
             }
         }
         $bugsnag = app('bugsnag');
-        if ( $bugsnag ) {
+        if ( $bugsnag instanceof \Bugsnag_Client ) {
             $metadata = null;
             if( $e instanceof BugSnagException && $e->willBeReported() ){
                 $metadata = $e->getExceptionMetaData();
@@ -42,7 +37,6 @@ class ExceptionHandler extends Handler {
             }
             $bugsnag->notifyException($e, $metadata, "error");
         }
-
         return parent::report($e);
     }
 

@@ -10,4 +10,6 @@ return array(
     'appkey' => env( 'SMS_KEY' ) ,
     'appsecret' => env( 'SMS_SECRET' ) ,
     'sender' => 'tui3' ,
+    'prefix' => 't3test:' ,
+    'suffix' => '' ,
 );

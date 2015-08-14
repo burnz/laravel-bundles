@@ -13,6 +13,11 @@ use Xjtuwangke\L5Controller\L5Controller;
 use Xjtuwangke\RestfulAPI\Errors\APIError;
 use Xjtuwangke\RestfulAPI\Http\APIJsonResponse;
 
+/**
+ * 请在HTTP头加上Accept: application/json
+ * Class APIController
+ * @package Xjtuwangke\RestfulAPI\Controllers
+ */
 abstract class APIController extends L5Controller{
 
     /**
@@ -24,7 +29,7 @@ abstract class APIController extends L5Controller{
         $this->response = new APIJsonResponse();
     }
 
-    public function handle( KFormRequest $request ){
+    protected function _handle( KFormRequest $request ){
         try{
             $this->action( $request );
         }
@@ -37,6 +42,6 @@ abstract class APIController extends L5Controller{
         return $this->response;
     }
 
-    abstract protected function action( KFormRequest $request );
+    //abstract protected function action( KFormRequest $request );
 
 }

@@ -33,6 +33,9 @@ class APIJsonResponse extends JsonResponse{
         parent::__construct($this->responseData, 200, $headers , JSON_UNESCAPED_UNICODE );
     }
 
+    /**
+     * @param APIError $error
+     */
     public function pushError( APIError $error ){
         $this->responseData['errors'][$error->getCode()] = $error->getMessage();
         $this->pushDebug( $error->getErrorContext() );
@@ -41,6 +44,9 @@ class APIJsonResponse extends JsonResponse{
         $this->is_dirty = true;
     }
 
+    /**
+     * @param \Exception $error
+     */
     public function pushException( \Exception $error ){
         $this->responseData['errors'][$error->getCode()] = $error->getMessage();
         $this->responseData['flag'] = 0;
@@ -48,16 +54,25 @@ class APIJsonResponse extends JsonResponse{
         $this->is_dirty = true;
     }
 
+    /**
+     * @param $debug
+     */
     public function pushDebug( $debug ){
         $this->responseData['debug'][] = $debug;
         $this->is_dirty = true;
     }
 
+    /**
+     * @param $results
+     */
     public function setResults( $results ){
         $this->responseData['results'] = $results;
         $this->is_dirty = true;
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function sendContent(){
         if( $this->is_dirty ){
             $this->setData( $this->responseData );

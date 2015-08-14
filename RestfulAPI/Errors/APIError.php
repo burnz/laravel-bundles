@@ -10,7 +10,7 @@ namespace Xjtuwangke\RestfulAPI\Errors;
 
 use Xjtuwangke\BugSnag\Exception;
 
-abstract class APIError extends Exception{
+class APIError extends Exception{
 
     /**
      * context

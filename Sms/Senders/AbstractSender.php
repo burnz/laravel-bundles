@@ -12,6 +12,7 @@ use Xjtuwangke\HttpClient\HTTPApiClient\HTTPApiClient;
 use Xjtuwangke\Sms\Exceptions\InvalidMobileNumberException;
 use Xjtuwangke\Sms\SenderFactory;
 use Xjtuwangke\HttpClient\HTTPApiClient\Middleware\BadResponseMiddleware;
+use Config;
 
 abstract class AbstractSender extends HTTPApiClient{
 
@@ -30,6 +31,7 @@ abstract class AbstractSender extends HTTPApiClient{
 
     public function send( $to , $message  ){
         $result = null;
+        $message = Config::get('sms.prefix') . $message . Config::get('sms.suffix');
         if( false == SenderFactory::validate( $to ) ){
             throwException( new InvalidMobileNumberException("非法的手机号码:{$to}") );
         }
