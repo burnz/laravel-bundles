@@ -32,27 +32,30 @@ class Role extends EntrustRole{
     }
 
     public function setPermissionsAttribute( array $perms ){
+        $perms = array_unique( $perms , SORT_STRING );
         \DB::beginTransaction();
+        $this->save();
         $exists = array();
         foreach( $this->perms as $perm ){
             if( ! in_array( $perm->name , $perms ) ){
                 $this->detachPermission( $perm );
             }
-            $exists[] = $perm->name;
+            else{
+                $exists[] = $perm->name;
+            }
         }
         $class = \Config::get('entrust.permission');
         $permissions = array();
+        $perms = array_diff( $perms , $exists );
         foreach( $perms as $perm ){
-            if( in_array( $perm , $exists ) ){
-                continue;
-            }
             $permission = $class::where('name' , $perm )->first();
             if( ! $permission ){
                 $permission = new $class;
                 $permission->name = $perm;
                 $permission->save();
-                $permissions[] = $permission;
             }
+            $permissions[] = $permission;
+            $exists[] = $permission->name;
         }
         $this->attachPermissions( $permissions );
         \DB::commit();

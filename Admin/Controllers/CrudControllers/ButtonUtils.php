@@ -36,7 +36,7 @@ class ButtonUtils {
      */
     public static function block_btn_create( CrudController $controller ){
         $url = $controller->redirectToMethodUrl( 'getCreate' , $controller );
-        $action = $controller::getActionPrefix() . '.create.form';
+        $action = 'admin::' . $controller::getActionPrefix() . '.create.form';
         if( AdminAuthMiddleware::canAccess( $action , \Auth::user() ) ){
             $disabled = '';
         }
@@ -57,7 +57,7 @@ class ButtonUtils {
             return '';
         }
         $url = $controller->redirectToMethodUrl( 'getEdit' , $controller , [ $item->getKey() ] );
-        $action = $controller::getActionPrefix() . '.edit.form';
+        $action = 'admin::' . $controller::getActionPrefix() . '.edit.form';
         if( AdminAuthMiddleware::canAccess( $action , \Auth::user() ) ){
             $disabled = '';
         }
@@ -75,7 +75,7 @@ class ButtonUtils {
      */
     public static function block_btn_show( CrudController $controller , Model $item ){
         $url = $controller->redirectToMethodUrl( 'getShow' , $controller , [ $item->getKey() ] );
-        $action = $controller::getActionPrefix() . '.show.detail';
+        $action = 'admin::' . $controller::getActionPrefix() . '.show.detail';
         if( AdminAuthMiddleware::canAccess( $action , \Auth::user() ) ){
             $disabled = '';
         }
@@ -96,7 +96,7 @@ class ButtonUtils {
             return '';
         }
         $url = $controller->redirectToMethodUrl( 'deleteRemove' , $controller  );
-        $action = $controller::getActionPrefix() . '.remove.delete';
+        $action = 'admin::' . $controller::getActionPrefix() . '.remove.delete';
         if( AdminAuthMiddleware::canAccess( $action , \Auth::user() ) ){
             $disabled = '';
         }
@@ -133,7 +133,7 @@ FORM;
             return '';
         }
         $url = $controller->redirectToMethodUrl( 'postRestore' , $controller  );
-        $action = $controller::getActionPrefix() . '.remove.restore';
+        $action = 'admin:' . $controller::getActionPrefix() . '.remove.restore';
         if( AdminAuthMiddleware::canAccess( $action , \Auth::user() ) ){
             $disabled = '';
         }
