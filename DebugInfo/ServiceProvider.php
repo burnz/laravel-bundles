@@ -12,6 +12,7 @@ use Barryvdh\Debugbar\LaravelDebugbar;
 use DebugBar\DataCollector\MessagesCollector;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use SebastianBergmann\Version;
+use Gitonomy\Git\Repository;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -25,6 +26,10 @@ class ServiceProvider extends BaseServiceProvider
                 $version = new Version( $this->app['config']['app']['version'] , base_path() );
                 $codeCollector->addMessage('base path:' . base_path());
                 $codeCollector->addMessage("version:\n" . $version->getVersion() );
+            }
+            if( class_exists( Repository::class ) ){
+                $git = new \Gitonomy\Git\Repository(base_path());
+                $codeCollector->addMessage("current commit:\n" . $git->getHeadCommit()->getRevision() );
             }
             $debugbar->addCollector( $codeCollector );
         }
