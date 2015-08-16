@@ -9,6 +9,7 @@
 namespace Xjtuwangke\LaravelModels;
 
 
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Schema\Blueprint;
 use Xjtuwangke\LaravelModels\Traits\LoginableTrait;

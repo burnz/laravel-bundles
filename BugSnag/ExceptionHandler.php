@@ -9,8 +9,6 @@
 namespace Xjtuwangke\BugSnag;
 
 use Illuminate\Foundation\Exceptions\Handler;
-use Xjtuwangke\Contracts\WithMessageBag\WithMessageBag;
-use Xjtuwangke\BugSnag\Exception as BugSnagException;
 
 class ExceptionHandler extends Handler {
 
@@ -28,15 +26,7 @@ class ExceptionHandler extends Handler {
                 return parent::report($e);
             }
         }
-        $bugsnag = app('bugsnag');
-        if ( $bugsnag instanceof \Bugsnag_Client ) {
-            $metadata = null;
-            if( $e instanceof BugSnagException && $e->willBeReported() ){
-                $metadata = $e->getExceptionMetaData();
-                $metadata['app_version'] = \Config::get( 'app.version' );
-            }
-            $bugsnag->notifyException($e, $metadata, "error");
-        }
+        Reporter::report( $e );
         return parent::report($e);
     }
 
