@@ -10,6 +10,7 @@ namespace Xjtuwangke\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Support\Str;
 
 class HostnameMiddleware
 {
@@ -58,7 +59,10 @@ class HostnameMiddleware
             if( $this->hostMatches( $pattern , $host ) ){
                 $host = $targetHost;
                 if( $this->isAllowedHost( $targetHost ) ){
-                    $url = $request->getScheme() . '://' . $targetHost . $request->getPathInfo() . '?' . $request->getQueryString();
+                    if( $queryString = $request->getQueryString() ){
+                        $queryString = '?' . $queryString;
+                    }
+                    $url = $request->getScheme() . '://' . $targetHost . $request->getPathInfo() . $queryString;
                     return \Response::make('',301,array('Location'=>$url));
                 }
                 else{
@@ -109,10 +113,6 @@ class HostnameMiddleware
         if( $host === $pattern ){
             return true;
         }
-        $pattern = str_replace( '.' , '\.' , $pattern );
-        $pattern = str_replace( '-' , '\-' , $pattern );
-        $pattern = str_replace( '*' , '[\w\d\-\_]+' , $pattern );
-        $pattern = "/^{$pattern}$/i";
-        return preg_match( $pattern , $host );
+        return Str::is( $pattern , $host );
     }
 }

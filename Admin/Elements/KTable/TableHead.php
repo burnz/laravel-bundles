@@ -224,9 +224,6 @@ BUTTONS;
         if( $this->getGroupable() ){
             $options = $this->getGroupable();
             $dropdown = <<<LI
-<li onclick="javascript:$(this).parents('ul.dropdown-menu').find('input').val('*');$(this).parents('form').submit();">
-<a class='btn-table-groupby' attr-groupby='*'>全部</a>
-</li>
 LI;
             $first = null;
             foreach( $options as $key => $val ){
