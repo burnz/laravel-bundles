@@ -9,6 +9,7 @@
 namespace Xjtuwangke\BugSnag;
 
 use Xjtuwangke\BugSnag\Exception as BugSnagException;
+use Xjtuwangke\DebugInfo\ServiceProvider as DebugInfoServiceProvider;
 
 class Reporter
 {
@@ -21,7 +22,7 @@ class Reporter
             $metadata = null;
             if( $e instanceof BugSnagException && $e->willBeReported() ){
                 $metadata = $e->getExceptionMetaData();
-                $metadata['app_version'] = \Config::get( 'app.version' );
+                $metadata['app_version'] = DebugInfoServiceProvider::appVersion();
             }
             $bugsnag->notifyException($e, $metadata, "error");
         }

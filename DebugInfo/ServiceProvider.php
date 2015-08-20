@@ -17,6 +17,9 @@ use Gitonomy\Git\Repository;
 
 class ServiceProvider extends BaseServiceProvider
 {
+    /**
+     * @throws \DebugBar\DebugBarException
+     */
     public function boot(){
         $debugbar = $this->app['debugbar'];
         if( $debugbar instanceof LaravelDebugbar ){
@@ -24,7 +27,7 @@ class ServiceProvider extends BaseServiceProvider
             $codeCollector->addMessage('enviroment:' . $this->app->environment() );
             //package "sebastian/version": "1.*"  required
             if( class_exists( Version::class ) ){
-                $version = new Version( $this->app['config']['app']['version'] , base_path() );
+                $version = static::appVersion( $this->app['config']['app']['version'] );
                 $codeCollector->addMessage('base path:' . base_path());
                 $codeCollector->addMessage("version:\n" . $version->getVersion() );
             }
@@ -43,6 +46,10 @@ class ServiceProvider extends BaseServiceProvider
         }
     }
 
+    /**
+     * @param Commit $commit
+     * @return array
+     */
     protected function commitMessageArray( Commit $commit ){
         return array(
             'hash' => $commit->getHash() ,
@@ -55,5 +62,17 @@ class ServiceProvider extends BaseServiceProvider
 
     public function register(){
 
+    }
+
+    /**
+     * @param $version
+     * @return string X.Y.Z
+     */
+    public static function appVersion( $version = null ){
+        if( ! $version ){
+            $version = '0.0.0';
+        }
+        $version = new Version( $version , base_path() );
+        return $version->getVersion();
     }
 }
