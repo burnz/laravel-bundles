@@ -29,7 +29,7 @@ class ServiceProvider extends BaseServiceProvider
             if( class_exists( Version::class ) ){
                 $version = static::appVersion( $this->app['config']['app']['version'] );
                 $codeCollector->addMessage('base path:' . base_path());
-                $codeCollector->addMessage("version:\n" . $version->getVersion() );
+                $codeCollector->addMessage("version:\n" . $version );
             }
             if( class_exists( Repository::class ) ){
                 $repository = new \Gitonomy\Git\Repository(base_path());
