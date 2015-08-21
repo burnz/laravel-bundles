@@ -12,6 +12,7 @@ use Xjtuwangke\KForm\FormRequest\KFormRequest;
 use Xjtuwangke\L5Controller\L5Controller;
 use Xjtuwangke\RestfulAPI\Errors\APIError;
 use Xjtuwangke\RestfulAPI\Http\APIJsonResponse;
+use Xjtuwangke\RestfulAPI\Http\APIResponse;
 
 /**
  * 请在HTTP头加上Accept: application/json
@@ -21,7 +22,7 @@ use Xjtuwangke\RestfulAPI\Http\APIJsonResponse;
 abstract class APIController extends L5Controller{
 
     /**
-     * @var APIJsonResponse
+     * @var APIResponse
      */
     protected $response = null;
 
@@ -29,6 +30,10 @@ abstract class APIController extends L5Controller{
         $this->response = new APIJsonResponse();
     }
 
+    /**
+     * @param KFormRequest $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     protected function _handle( KFormRequest $request ){
         try{
             $this->action( $request );
@@ -39,9 +44,10 @@ abstract class APIController extends L5Controller{
         catch( \Exception $e ){
             $this->response->pushException( $e );
         }
-        return $this->response;
+        return $this->response->getResponse();
     }
 
+    //abstract protected function handle( KFormRequest $request );
     //abstract protected function action( KFormRequest $request );
 
 }

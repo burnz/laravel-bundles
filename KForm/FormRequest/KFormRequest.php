@@ -86,7 +86,7 @@ abstract class KFormRequest extends FormRequest{
                 $error = new FailedValidtionError();
                 $error->setErrorContext( $errors );
                 $response->pushError( $error );
-                throw new HttpResponseException( $response );
+                throw new HttpResponseException( $response->getResponse() );
             }
             else{
                 $messenger = new KMessenger();
@@ -125,7 +125,7 @@ abstract class KFormRequest extends FormRequest{
         if( $this->acceptsJson() ){
             $response = new APIJsonResponse();
             $response->pushError( new FailedAuthError() );
-            throw new HttpResponseException( $response );
+            throw new HttpResponseException( $response->getResponse() );
         }
         else{
 
