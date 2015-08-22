@@ -27,7 +27,7 @@ class ServiceProvider extends BaseServiceProvider
             $codeCollector->addMessage('enviroment:' . $this->app->environment() );
             //package "sebastian/version": "1.*"  required
             if( class_exists( Version::class ) ){
-                $version = static::appVersion( $this->app['config']['app']['version'] );
+                $version = static::appVersion( $this->app['config']->get('app.version') );
                 $codeCollector->addMessage('base path:' . base_path());
                 $codeCollector->addMessage("version:\n" . $version );
             }

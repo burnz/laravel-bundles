@@ -45,7 +45,7 @@
         </li>
         <li class="dropdown report-bug-menu">
             <a href="mailto:{{ Config::get('admin.site.email') }}">
-                <i class="fa fa-bug"></i>上报Bug(版本:{{ Config::get('admin.site.version') }})
+                <i class="fa fa-bug"></i>上报Bug(版本:{{ Xjtuwangke\DebugInfo\ServiceProvider::appVersion() }})
             </a>
         </li>
         <li class="dropdown lock-screen-menu">
