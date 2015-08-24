@@ -15,13 +15,13 @@ class QRFactory{
 
     /**
      * @param $code
-     * @return QrCode
+     * @return QRCode
      * @throws \Xjtuwangke\BugSnag\Exception
      */
     public function make( $code ){
         $logo = Config::get('qrcode.logo');
         $level = Config::get('qrcode.level' , EndroidQRCode::LEVEL_HIGH );
-        $qrcode = new QrCode( $code , $level );
+        $qrcode = new QRCode( $code , $level );
         $qrcode->setLogo( $logo );
         return $qrcode;
     }

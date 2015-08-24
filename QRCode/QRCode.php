@@ -60,7 +60,7 @@ class QRCode{
             //do nothing
         }
         else{
-            throw new Exception('logo file not found in QrCode:' . $logo );
+            throw new Exception('logo file not found in QRCode:' . $logo );
         }
         if( $this->logo ){
             imagedestroy( $this->logo );

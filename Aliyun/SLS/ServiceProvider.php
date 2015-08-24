@@ -28,9 +28,9 @@ class ServiceProvider extends BaseServiceProvider
     {
         $configPath = __DIR__ . '/config/aliyun-sls.php';
         $this->publishes([
-            $configPath => config_path('aliyun-sls.php')
+            $configPath => config_path('aliyun/sls.php')
         ]);
-        $this->mergeConfigFrom($configPath, 'aliyun-sls');
+        $this->mergeConfigFrom($configPath, 'aliyun.sls');
     }
     /**
      * Register the service provider.
@@ -40,7 +40,7 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->app->singleton('aliyun.sls', function ($app) {
-            $config = $app->config->get('aliyun-sls');
+            $config = $app->config->get('aliyun.sls');
             return new AliyunSLSAdapter($config['endpoint'], $config['access_key_id'], $config['access_key'], $config['project'], $config['logstore']);
         });
     }
