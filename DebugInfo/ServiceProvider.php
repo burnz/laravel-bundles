@@ -22,7 +22,11 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot(){
         $debugbar = $this->app['debugbar'];
-        if( $debugbar instanceof LaravelDebugbar ){
+        if( $debugbar instanceof LaravelDebugbar && $debugbar->isEnabled() ){
+
+            /**
+             * CodeCollector获取代码提交和版本信息
+             */
             $codeCollector = new MessagesCollector('code');
             $codeCollector->addMessage('enviroment:' . $this->app->environment() );
             //package "sebastian/version": "1.*"  required
@@ -43,6 +47,17 @@ class ServiceProvider extends BaseServiceProvider
                 $codeCollector->addMessage($commits , 'git-log');
             }
             $debugbar->addCollector( $codeCollector );
+
+            /**
+             * ServerCollector获取服务器信息
+             */
+            $serverCollector = new MessagesCollector('sever');
+            $serverCollector->addMessage( php_uname() , 'uname' );
+            $serverCollector->addMessage( "sapi_name:" . php_sapi_name() , 'phpinfo' );
+            $serverCollector->addMessage( "PHP version:" . PHP_VERSION , 'phpinfo' );
+            $serverCollector->addMessage( "Zend_Version:" . zend_version() , 'phpinfo' );
+            $serverCollector->addMessage( sys_getloadavg() , 'load' );
+            $debugbar->addCollector( $serverCollector );
         }
     }
 

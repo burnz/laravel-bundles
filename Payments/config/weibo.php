@@ -7,6 +7,6 @@
  */
 
 return array(
-    'pid' => '' ,
-    'key' => '' ,
+    'pid' => env('WEIBOPAY_PID') ,
+    'key' => env('WEIBOPAY_KEY') ,
 );
