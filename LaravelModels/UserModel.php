@@ -51,4 +51,16 @@ class UserModel extends UserModelBase{
             }
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getUserRoleNamesArrayAttribute(){
+        $array = array();
+        $roles = $this->roles;
+        foreach( $roles as $one ){
+            $array[] = $one->name;
+        }
+        return $array;
+    }
 }

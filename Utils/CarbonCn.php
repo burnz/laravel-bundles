@@ -33,7 +33,7 @@ class CarbonCn extends Carbon{
     );
 
     public function __get( $name ){
-        if( 'weekday_name' ){
+        if( 'weekday_name' === $name ){
             return static::$days[ parent::__get( 'dayOfWeek') ];
         }
         else{

@@ -39,6 +39,11 @@ class KTable {
 
     protected $tail = '';
 
+    /**
+     * @var null | \Closure
+     */
+    protected $trAttributes = null;
+
     public function __construct(){
         $this->attributes = HTML::attributes( $this->attributes );
     }
@@ -147,26 +152,46 @@ class KTable {
         return $this;
     }
 
+    /**
+     * @param string $html
+     * @return $this
+     */
     public function setTail( $html = '' ){
         $this->tail = $html;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getTail(){
         return $this->tail;
     }
 
+    /**
+     * @return array|string
+     */
     public function getAttributes(){
         return $this->attributes;
     }
 
+    /**
+     * @return array
+     */
     public function getTbody(){
         return $this->tbody;
     }
 
-    public function itemsToTbody( $items ){
+    /**
+     * @param $items
+     * @param \Closure|null $trAttributes
+     */
+    public function itemsToTbody( $items , \Closure $trAttributes = null ){
         if( null == $items ){
             return;
+        }
+        if( is_null( $trAttributes ) ){
+            $trAttributes = $this->trAttributes;
         }
         foreach( $items as $item ){
             foreach( $this->thead as $th ){
@@ -178,10 +203,28 @@ class KTable {
                     $this->td( $item->{$th->getField()} , [] , true );
                 }
             }
-            $this->tr();
+            if( is_null( $trAttributes ) ){
+                $this->tr();
+            }
+            else{
+                $this->tr( $trAttributes( $item ) );
+            }
         }
     }
 
+    /**
+     * @param \Closure $trAttributes
+     * @return $this
+     */
+    public function setTrAttributesFunc( \Closure $trAttributes ){
+        $this->trAttributes = $trAttributes;
+        return $this;
+    }
+
+    /**
+     * @param QueryRequest $request
+     * @return string
+     */
     public function render( QueryRequest $request ){
         return TableDrawer::render( $this , $request );
     }

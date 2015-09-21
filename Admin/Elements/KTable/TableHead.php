@@ -120,7 +120,11 @@ class TableHead {
     public function setGroupable($groupable = array() , $hasAll = true )
     {
         if( $hasAll ){
-            $groupable = array_merge( ['*'=>'全部'] , $groupable );
+            $temp = $groupable;
+            $groupable = array('*'=>'全部');
+            foreach( $temp as $key => $val ){
+                $groupable[ $key ] = $val;
+            }
         }
         $this->groupable = $groupable;
         return $this;

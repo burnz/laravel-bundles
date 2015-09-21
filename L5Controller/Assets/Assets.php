@@ -36,6 +36,11 @@ class Assets {
     protected $path    = null;
 
     /**
+     * @var bool
+     */
+    protected $use_elixir = false;
+
+    /**
      * @return string
      */
     public function getVersion(){
@@ -69,7 +74,13 @@ class Assets {
      * @return string
      */
     public function getFullPath( $path ){
-        return url( $this->path . '/' . $path );
+        if( $this->use_elixir ){
+            $path = rtrim( $this->path , '/' ) . '/' . $path;
+            return elixir( $path );
+        }
+        else{
+            return url( $path );
+        }
     }
 
     /**
@@ -80,7 +91,7 @@ class Assets {
         if( ! $this->isFullUrl( $js ) ){
             $js = $this->getFullPath( $js );
         }
-        return \HTML::script( $js );
+        return '<script src="' . e($js) . '"></script>';
     }
 
     /**
@@ -91,7 +102,7 @@ class Assets {
         if( ! $this->isFullUrl( $css ) ){
             $css = $this->getFullPath( $css );
         }
-        return \HTML::style( $css );
+        return '<link rel="stylesheet" type="text/css" href="' . e($css) . '">';
     }
 
     /**
