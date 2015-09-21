@@ -16,4 +16,6 @@ return array(
 
     'cert_path'     => storage_path('cert/wechat/apiclient_cert.pem' ),
     'cert_key_path' => storage_path('cert/wechat/apiclient_key.pem') ,
+
+    'notify_url' => '' ,
 );

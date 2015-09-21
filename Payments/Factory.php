@@ -8,7 +8,7 @@
 
 namespace Xjtuwangke\Payments;
 
-
+use Illuminate\Http\Response;
 use Omnipay\Alipay\ExpressGateway as AlipayExpressGateway;
 use Config;
 use Omnipay\WeiboPay\WeiboExpressPayGateway;
@@ -87,10 +87,11 @@ class Factory
      * @param $total_fee float 总金额
      * @param $subject string
      * @param null|string $trade_type
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @param bool $redirect 是否重定向
+     * @return Response|\Symfony\Component\HttpFoundation\StreamedResponse
      * @throws Exception
      */
-    public function wechat_qrcode( $out_trade_no , $total_fee , $subject , $trade_type = null ){
+    public function wechat_pay_url( $out_trade_no , $total_fee , $subject , $trade_type = null , $redirect = false ){
         $config = Config::get('payments.wechat',array());
         if( is_null( $trade_type ) || WechatExpressGateway::Trade_Type_JSAPI === $trade_type ){
             //JS API方式支付
@@ -110,11 +111,16 @@ class Factory
                 'total_fee' => $total_fee ,
                 'subject' => $subject ,
             );
-            $r_link = url( 'pay/wechat/?' . http_build_query( $parameters ) );
+            $r_link = url( 'pay/wechat/jsapi?' . http_build_query( $parameters ) );
             $url = $jsApi->createOauthUrlForCode(urlencode($r_link));
-            //造二维码
-            $qrFactory = new QRFactory();
-            return $qrFactory->make( $url )->response();
+            if( false == $redirect ){
+                //造二维码
+                $qrFactory = new QRFactory();
+                return $qrFactory->make( $url )->response();
+            }
+            else{
+                return \Response::make('',302,array('Location'=>$url));
+            }
         }
         if( WechatExpressGateway::Trade_Type_NATIVE === $trade_type ){
             //native方式
@@ -124,12 +130,19 @@ class Factory
                 'total_fee' => $total_fee ,
                 'subject' => $subject ,
                 'mch_id' => array_get( $config , 'mch_id' ) ,
+                'notify_url' => array_get( $config , 'notify_url' ),
             );
             $result = $gateway->prePurchase($parameters,WechatExpressGateway::Trade_Type_NATIVE )->send();
             $result = $result->getTransactionReference();
             if( is_array( $result ) && array_get( $result , 'return_code' ) === 'SUCCESS' ){
-                $qrFactory = new QRFactory();
-                return $qrFactory->make( array_get( $result , 'code_url' ) )->response();
+                $url = array_get( $result , 'code_url' );
+                if( false == $redirect ){
+                    $qrFactory = new QRFactory();
+                    return $qrFactory->make( $url )->response();
+                }
+                else{
+                    return \Response::make('',302,array('Location'=>$url));
+                }
             }
             else{
                 $e = new Exception();
