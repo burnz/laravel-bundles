@@ -24,7 +24,7 @@ $field = new \Xjtuwangke\KForm\FormField\Types\Password();
 $field->setFieldName('password')
     ->setRules(array(
         'required' => '密码不能为空' ,
-        'min:8'    => '密码不能小于8个字符' ,
+        'min:6'    => '密码不能小于6个字符' ,
         'max:32'   => '密码不能大于32个字符' ,
     ))
     ->setWidth(1)

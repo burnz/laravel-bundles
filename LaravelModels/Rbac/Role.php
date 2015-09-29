@@ -17,6 +17,8 @@ class Role extends EntrustRole{
 
     protected $table = 'admin_roles';
 
+    protected $dirty_perms = null;
+
     use QueryRequestHandlerTrait;
 
     /**
@@ -31,6 +33,9 @@ class Role extends EntrustRole{
         return $result;
     }
 
+    /**
+     * @param array $perms
+     */
     public function setPermissionsAttribute( array $perms ){
         $perms = array_unique( $perms , SORT_STRING );
         \DB::beginTransaction();
@@ -59,5 +64,32 @@ class Role extends EntrustRole{
         }
         $this->attachPermissions( $permissions );
         \DB::commit();
+    }
+
+    /**
+     * @param array $perms
+     */
+    public function batchAddPermissions( array $perms ){
+        if( is_null( $this->dirty_perms ) ){
+            $this->dirty_perms = $perms;
+        }
+        else{
+            $this->dirty_perms = array_merge( $this->dirty_perms , $perms );
+        }
+    }
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save( array $options = array() ){
+        \DB::beginTransaction();
+        if( is_array( $this->dirty_perms ) ){
+            $this->setPermissionsAttribute( $this->dirty_perms );
+            $this->dirty_perms = null;
+        }
+        $result = parent::save( $options );
+        \DB::commit();
+        return $result;
     }
 }
