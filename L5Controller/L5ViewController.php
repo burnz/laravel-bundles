@@ -18,6 +18,9 @@ abstract class L5ViewController extends L5Controller{
      */
     protected $layout;
 
+    /**
+     * @var string
+     */
     protected $theme  = 'default';
 
     /**

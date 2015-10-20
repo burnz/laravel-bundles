@@ -56,6 +56,10 @@ class HostnameMiddleware
         }
         $host = strtolower( $request->getHost() );
         foreach( $this->hosts as $pattern => $targetHost ){
+            if( $this->hostMatches( $targetHost , $host ) ){
+                //targetHost与当前host匹配
+                continue;
+            }
             if( $this->hostMatches( $pattern , $host ) ){
                 $host = $targetHost;
                 if( $this->isAllowedHost( $targetHost ) ){

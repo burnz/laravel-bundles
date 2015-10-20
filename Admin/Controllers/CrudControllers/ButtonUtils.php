@@ -92,7 +92,7 @@ class ButtonUtils {
      * @return string
      */
     public static function block_btn_trash( CrudController $controller , Model $item ){
-        if( method_exists( $item , 'trahsed') && true == $item->trashed() ){
+        if( method_exists( $item , 'trashed') && true == $item->trashed() ){
             return '';
         }
         $url = $controller->redirectToMethodUrl( 'deleteRemove' , $controller  );
@@ -126,7 +126,7 @@ FORM;
      * @return string
      */
     public static function block_btn_restore( CrudController $controller , Model $item ){
-        if( ! $item instanceof SoftDeletes ){
+        if( ! method_exists( $item , 'trashed') ){
             return '';
         }
         if( false == $item->trashed() ){
@@ -141,7 +141,7 @@ FORM;
             $disabled = 'disabled';
         }
         $id = $item->getKey();
-        $token = csrf_field();
+        $token = csrf_token();
         $form = <<<FORM
 <a class='btn btn-sm btn-danger'
   data-attr-confirm='确定要恢复吗'

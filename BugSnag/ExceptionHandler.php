@@ -9,6 +9,10 @@
 namespace Xjtuwangke\BugSnag;
 
 use Illuminate\Foundation\Exceptions\Handler;
+use Illuminate\Session\TokenMismatchException;
+use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Xjtuwangke\BugSnag\Exception as BugsnagException;
 
 class ExceptionHandler extends Handler {
 
@@ -19,15 +23,15 @@ class ExceptionHandler extends Handler {
     public function report(\Exception $e)
     {
         if( $e instanceof DontReportExceptionContract ){
-            return parent::report( $e );
+            parent::report( $e );
         }
         foreach ($this->dontReport as $type) {
             if ($e instanceof $type) {
-                return parent::report($e);
+                parent::report($e);
             }
         }
         Reporter::report( $e );
-        return parent::report($e);
+        parent::report($e);
     }
 
     /**
@@ -35,15 +39,32 @@ class ExceptionHandler extends Handler {
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $e
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function render($request, \Exception $e)
     {
+        if( $e instanceof TokenMismatchException ){
+            $e = new Http500Exception('表单安全性验证失败,很可能是因为表单长期未提交已经过期,请返回上一页刷新页面');
+        }
+        if( $e instanceof MethodNotAllowedHttpException ){
+            $e = new Http500Exception('打开方式不对@.@');
+        }
         if ($this->isHttpException($e))
         {
             return $this->renderHttpException($e);
         }
 
+        if( $e instanceof BugsnagException ){
+            if( $request->acceptsHtml() ){
+                $response = $e->getHtmlResponse();
+            }
+            else{
+                $response = $e->getJsonResponse();
+            }
+            if( $response instanceof Response){
+                return $response;
+            }
+        }
 
         if (config('app.debug'))
         {
@@ -57,7 +78,7 @@ class ExceptionHandler extends Handler {
      * Render an exception using Whoops.
      *
      * @param  \Exception $e
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     protected function renderExceptionWithWhoops(\Exception $e)
     {
