@@ -133,7 +133,7 @@ FORM;
             return '';
         }
         $url = $controller->redirectToMethodUrl( 'postRestore' , $controller  );
-        $action = 'admin:' . $controller::getActionPrefix() . '.remove.restore';
+        $action = 'admin::' . $controller::getActionPrefix() . '.remove.restore';
         if( AdminAuthMiddleware::canAccess( $action , \Auth::user() ) ){
             $disabled = '';
         }

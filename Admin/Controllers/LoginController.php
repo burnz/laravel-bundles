@@ -40,8 +40,8 @@ class LoginController extends AdminController{
      * @param SessionFlashedKFormContract $loginForm
      * @return View
      */
-    public function login( SessionFlashedKFormContract $loginForm = null ){
-        if( is_null( $loginForm ) ){
+    public function login( SessionFlashedKFormContract $loginForm ){
+        if( ! $loginForm instanceof KForm ){
             $loginForm = $this->getLoginForm();
         }
         return $this->getLayout()->with('form' , $loginForm );

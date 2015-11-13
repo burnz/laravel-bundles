@@ -13,6 +13,7 @@ use Xjtuwangke\Admin\Elements\KMessenger;
 use Xjtuwangke\Admin\Elements\KTable\KTable;
 use Xjtuwangke\KForm\DataMapping\SingleEloquentInstance;
 use Xjtuwangke\KForm\FormRequest\KFormRequest;
+use Xjtuwangke\KForm\KForm;
 use Xjtuwangke\KForm\SessionFlashedKFormContract;
 use Xjtuwangke\QueryRequests\QueryRequest;
 use Illuminate\View\View;
@@ -114,10 +115,11 @@ trait CrudControllerTrait
     /**
      * 保存items信息
      * @param KFormRequest $request
-     * @param null         $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param null $id
+     * @param \Closure|null $post
+     * @return mixed
      */
-    protected function handlePostStore( KFormRequest $request , $id = null ){
+    protected function handlePostStore( KFormRequest $request , $id = null , \Closure $post = null ){
         \DB::beginTransaction();
         $form = $request->getKform();
         if( $id ){
@@ -132,6 +134,9 @@ trait CrudControllerTrait
         $form->addMappingInstance( $this->mappingInstance( $instance ) );
         $form->mapToInstance();
         $instance->save();
+        if( $post instanceof \Closure ){
+            $post( $instance );
+        }
         \DB::commit();
         $messenger = new KMessenger();
         if( $id ){
@@ -149,9 +154,9 @@ trait CrudControllerTrait
      * @param null | int                  $id
      * @return View
      */
-    public function getEdit( SessionFlashedKFormContract $form = null , $id ){
+    public function getEdit( SessionFlashedKFormContract $form , $id ){
         $item = null;
-        if( ! $form ){
+        if( ! $form instanceof KForm ){
             $form = $this->kfrom();
         }
         $title = '编辑' . static::$name;
@@ -172,9 +177,9 @@ trait CrudControllerTrait
      * @param SessionFlashedKFormContract $form
      * @return View
      */
-    public function getCreate( SessionFlashedKFormContract $form = null ){
+    public function getCreate( SessionFlashedKFormContract $form ){
         $item = null;
-        if( ! $form ){
+        if( ! $form instanceof KForm ){
             $form = $this->kfrom();
         }
         $title = '新建' . static::$name;

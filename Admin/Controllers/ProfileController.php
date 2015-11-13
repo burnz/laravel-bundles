@@ -12,6 +12,7 @@ use Auth;
 use Xjtuwangke\Admin\FormRequests\PasswordFormRequest;
 use Xjtuwangke\Admin\FormRequests\ProfileFormRequest;
 use Xjtuwangke\KForm\DataMapping\SingleEloquentInstance;
+use Xjtuwangke\KForm\KForm;
 use Xjtuwangke\KForm\SessionFlashedKFormContract;
 use Illuminate\Http\Exception\HttpResponseException;
 
@@ -29,9 +30,9 @@ class ProfileController extends  AdminController{
         }
     }
 
-    public function profile( SessionFlashedKFormContract $form = null ){
+    public function profile( SessionFlashedKFormContract $form ){
         $this->checkAuthedUser();
-        if( is_null( $form ) ){
+        if( ! $form instanceof KForm ){
             $form = new ProfileFormRequest();
             $form = $form->getKform();
         }
@@ -63,9 +64,9 @@ class ProfileController extends  AdminController{
         }
     }
 
-    public function password( SessionFlashedKFormContract $form = null ){
+    public function password( SessionFlashedKFormContract $form ){
         $this->checkAuthedUser();
-        if( is_null( $form ) ){
+        if( ! $form instanceof KForm ){
             $form = new PasswordFormRequest();
             $form = $form->getKform();
         }

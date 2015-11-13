@@ -10,6 +10,7 @@ namespace Xjtuwangke\KForm\ServiceProvider;
 
 use Illuminate\Support\ServiceProvider;
 use Xjtuwangke\KForm\Dumper\FormDumpCommand;
+use Xjtuwangke\KForm\KDummyForm;
 use Xjtuwangke\KForm\KForm;
 use Xjtuwangke\KForm\KFormFactory;
 use Xjtuwangke\KForm\SessionFlashedKFormContract;
@@ -39,7 +40,7 @@ class KFormSessionFlashServiceProvider extends ServiceProvider{
                 return $instance;
             }
             else{
-                return null;
+                return new KDummyForm();
             }
         });
 
