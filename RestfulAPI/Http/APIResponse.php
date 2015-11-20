@@ -63,7 +63,7 @@ class APIResponse
      * @param \Exception $error
      */
     public function pushException( \Exception $error ){
-        $this->message['errors'][$error->getCode()] = $error->getMessage();
+        $this->message['errors'][] = $error;
         $this->last_error = $error;
     }
 
