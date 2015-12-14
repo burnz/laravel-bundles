@@ -8,7 +8,11 @@
 
 namespace Xjtuwangke\Cart;
 
-
+/**
+ * Interface CartItemInterface
+ * @package Xjtuwangke\Cart
+ * @deprecated
+ */
 interface CartItemInterface{
 
     public function isChecked();

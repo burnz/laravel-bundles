@@ -12,6 +12,11 @@ use Goodby\CSV\Import\Standard\Lexer;
 use Goodby\CSV\Import\Standard\LexerConfig;
 use Closure;
 
+/**
+ * Class Reader
+ * @package Xjtuwangke\Office\CSV
+ * @require "goodby/csv": "1.2.*"
+ */
 class Reader
 {
 

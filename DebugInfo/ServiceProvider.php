@@ -15,6 +15,14 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use SebastianBergmann\Version;
 use Gitonomy\Git\Repository;
 
+/**
+ * Class ServiceProvider
+ * @description 在laravel debugbar中显示git仓库提交/版本/branch信息
+ * @package Xjtuwangke\DebugInfo
+ * @require "gitonomy/gitlib": "0.1.*"
+ * @require "sebastian/version": "1.*"
+ * @require "barryvdh/laravel-debugbar": "~2.0"
+ */
 class ServiceProvider extends BaseServiceProvider
 {
     /**

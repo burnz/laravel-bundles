@@ -8,7 +8,11 @@
 
 namespace Xjtuwangke\BugSnag;
 
-
+/**
+ * Interface DontReportExceptionContract
+ * @package Xjtuwangke\BugSnag
+ * @description 空接口,实现该接口的Exceptions不会被report
+ */
 interface DontReportExceptionContract {
 
 }

@@ -14,6 +14,10 @@ use \Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Xjtuwangke\BugSnag\Exception as BugsnagException;
 
+/**
+ * Class ExceptionHandler
+ * @package Xjtuwangke\BugSnag
+ */
 class ExceptionHandler extends Handler {
 
     /**

@@ -24,7 +24,7 @@ class Code
 
     protected $expires_at;
 
-    protected static $cacheKey = '_verifyCodes';
+    protected static $cacheKey = '_verifyCodes-';
 
     /**
      * @param $identity
@@ -152,7 +152,7 @@ class Code
      * @return string
      */
     public function getCacheKey(){
-        return static::$cacheKey . sha1( $this->identity . '##' . $this->action ) . md5( $this->identity . '##' . $this->action );
+        return static::$cacheKey . sha1( $this->identity . '##' . serialize($this->action) ) . md5( $this->identity . '##' . serialize($this->action ) );
     }
 
     /**

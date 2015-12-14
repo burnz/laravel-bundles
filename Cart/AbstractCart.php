@@ -8,7 +8,11 @@
 
 namespace Xjtuwangke\Cart;
 
-
+/**
+ * Class AbstractCart
+ * @package Xjtuwangke\Cart
+ * @deprecated
+ */
 abstract class AbstractCart{
 
     protected $items = array();
